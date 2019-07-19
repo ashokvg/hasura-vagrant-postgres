@@ -4,9 +4,9 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=KD8sklfjslsld
-      - POSTGRES_DB=SIS  
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}  
     volumes:
     - db_data:/var/lib/postgresql/data
 
@@ -18,8 +18,8 @@ services:
     ports:
     - "5050:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: pgadmin
-      PGADMIN_DEFAULT_PASSWORD: pgadmin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USER}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     links:
     - postgres
     
@@ -31,7 +31,7 @@ services:
     - postgres
     restart: always
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://admin:KD8sklfjslsld@postgres:5432/SIS
+      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## uncomment next line to set an admin secret
       # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
